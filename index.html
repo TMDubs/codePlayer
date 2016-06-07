@@ -1,0 +1,126 @@
+<!doctype html>
+<head>
+
+    <title>Code Player</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <div id="menuBar">
+
+            <div id="logo">
+              [codePlayer]
+            </div>
+
+            <div id="buttonDiv">
+
+              <button id="runButton">run</button>
+
+            </div>
+
+            <ul id="toggles">
+              <li class="toggle selected">HTML</li>
+              <li class="toggle">CSS</li>
+              <li class="toggle">JS</li>
+              <li class="toggle selected" style="border: none">Result</li>
+            </ul>
+
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="codeContainer" id="HTMLContainer">
+
+          <div class="codeLabel">HTML</div>
+          <textarea id="htmlCode">ExampleHTML</textarea>
+
+        </div>
+
+        <div class="codeContainer hidden" id="CSSContainer">
+
+          <div class="codeLabel">CSS</div>
+          <textarea id="cssCode">ExampleCSS</textarea>
+
+        </div>
+
+        <div class="codeContainer hidden" id="JSContainer">
+
+          <div class="codeLabel">JS</div>
+          <textarea id="jsCode">ExampleJS</textarea>
+
+        </div>
+
+        <div class="codeContainer" id="ResultContainer">
+
+          <div class="codeLabel">Result</div>
+          <iframe id="resultFrame"></iframe>
+
+        </div>  
+
+    </div>
+   
+    <script>
+
+//calculates height of text code/text windows minus the height of the navbar 
+        var windowHeight = $(window).height();
+        var menuBarHeight = $("#menuBar").height();
+
+        var codeContainerHeight = windowHeight - menuBarHeight;
+
+        $(".codeContainer").height(codeContainerHeight + "px");
+
+        $(".toggle").click(function() {
+
+          $(this).toggleClass("selected");
+
+          var activeDiv = $(this).html();
+
+          $("#" + activeDiv + "Container").toggleClass('hidden');
+
+          var showingDivs = $(".codeContainer:not(.hidden)").length;
+
+          var width = 100/showingDivs;
+
+          $(".codeContainer").width(width + "%");
+
+        });
+
+        $("#runButton").click(function() {
+
+          $("iFrame").contents().find("html").html('<style>' + $("#cssCode").val() + '</style>' + $("#htmlCode").val());
+
+            //document.getElementById("resultFrame").contentWindow.eval($("#jsCode").val());//
+
+        });
+
+
+       
+
+
+         
+
+          
+
+
+
+        
+         
+
+    </script>
+
+</body>
+</html>
